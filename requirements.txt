@@ -1,0 +1,5 @@
+crate[sqlalchemy]
+pandas
+sqlalchemy
+streamlit
+streamlit-ace
