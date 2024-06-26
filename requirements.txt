@@ -1,5 +1,4 @@
-crate[sqlalchemy]
-pandas
 sqlalchemy
+sqlalchemy-cratedb
 streamlit
 streamlit-ace

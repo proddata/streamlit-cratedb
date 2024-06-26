@@ -1,18 +1,12 @@
 import streamlit as st
 from streamlit_ace import st_ace
-import sqlalchemy as sa
-import pandas as pd
 
-# Database URI construction
-db_uri = f"crate://{st.secrets['db_username']}:{st.secrets['db_password']}@{st.secrets['db_host']}:{st.secrets['db_port']}?ssl=true"
-engine = sa.create_engine(db_uri, echo=True)
+conn = st.connection("cratedb", type="sql")
 
 # Function to execute the query
 def execute_query():
     query = st.session_state.get('query', 'SELECT * FROM sys.summits LIMIT 10;')
-    with engine.connect() as connection:
-        df = pd.read_sql(sql=sa.text(query), con=connection)
-    st.session_state.query_result = df
+    st.session_state.query_result = conn.query(query, ttl="10m")
 
 # Streamlit App Layout
 st.title("Streamlit with CrateDB ")
@@ -24,7 +18,8 @@ query = st_ace(
     height=200, 
     font_size=14, 
     theme="dracula", 
-    keybinding="vscode"
+    keybinding="vscode",
+    auto_update=True
 )
 
 # Store the query in session state

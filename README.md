@@ -28,11 +28,12 @@ This Streamlit app allows you to execute SQL queries against a CrateDB Cloud dat
 4. Set up your secrets. Create a `secrets.toml` file in the `.streamlit` directory:
 
     ```toml
-    [secrets]
-    db_username = "crate"
-    db_password = ""
-    db_host = "localhost"
-    db_port = "4200"
+    [connections.cratedb]
+    dialect = "crate"
+    host = "localhost"
+    port = "4200"
+    username = "crate"
+    password = ""
     ```
 
 ## Running the App
